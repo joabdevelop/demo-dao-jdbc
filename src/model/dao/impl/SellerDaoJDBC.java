@@ -44,7 +44,10 @@ public class SellerDaoJDBC implements SellerDao {
 
         try {
             st = conn.prepareStatement(
-                "SELECT * FROM seller WHERE Id = ?"
+                "SELECT seller.*, department.Name as DepName "
+                + "FROM seller INNER JOIN department "
+                + "ON seller.DepartmentId = department.Id "
+                + "WHERE seller.Id = ?"
             );
             st.setInt(1, id);
             rs = st.executeQuery();
@@ -52,6 +55,7 @@ public class SellerDaoJDBC implements SellerDao {
             if (rs.next()) {
                 Department dep = new Department();
                 dep.setId(rs.getInt("DepartmentId"));
+                dep.setName(rs.getString("DepName"));
 
                 Seller seller = new Seller();
                 seller.setId(rs.getInt("Id"));
