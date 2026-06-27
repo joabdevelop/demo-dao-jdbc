@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import db.DB;
-import model.dao.SellerDao;
+import model.dao.interfaces.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
