@@ -2,6 +2,7 @@ package application;
 
 import java.sql.Connection;
 import db.DB;
+import model.entities.Department;
 
 public class Program {
     public static void main(String[] args) {
@@ -14,5 +15,8 @@ public class Program {
         } catch (Exception e) {
             System.out.println("Erro ao tentar conectar: " + e.getMessage());
         }
+
+        Department dep = new Department(1, "Software");
+        System.out.println(dep);
     }
 }
