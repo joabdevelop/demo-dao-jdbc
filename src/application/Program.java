@@ -1,7 +1,7 @@
 package application;
 
 import model.dao.DaoFactory;
-import model.dao.SellerDao;
+import model.dao.interfaces.SellerDao;
 import model.entities.Seller;
 
 public class Program {
