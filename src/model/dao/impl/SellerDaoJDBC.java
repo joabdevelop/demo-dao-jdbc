@@ -84,7 +84,7 @@ public class SellerDaoJDBC implements SellerDao {
     private Department instantiateDepartment(ResultSet rs) throws SQLException {
         Department dep = new Department();
         dep.setId(rs.getInt("DepartmentId"));
-        dep.setName(rs.getString("Name"));
+        dep.setName(rs.getString("DepName"));
         return dep;
     }
 
@@ -95,7 +95,10 @@ public class SellerDaoJDBC implements SellerDao {
 
         try {
             st = conn.prepareStatement(
-                "SELECT * FROM seller"
+                "SELECT seller.*,department.Name as DepName "
+                + "FROM seller INNER JOIN department "
+                + "ON seller.DepartmentId = department.Id "
+                + "ORDER BY Name"
             );
             rs = st.executeQuery();
 
@@ -106,20 +109,11 @@ public class SellerDaoJDBC implements SellerDao {
                 Department dep = map.get(rs.getInt("DepartmentId"));
 
                 if (dep == null) {
-                    dep = new Department();
-                    dep.setId(rs.getInt("DepartmentId"));
-                    dep.setName(rs.getString("Name"));
+                    dep = instantiateDepartment(rs);
                     map.put(rs.getInt("DepartmentId"), dep);
                 }
 
-                Seller seller = new Seller();
-                seller.setId(rs.getInt("Id"));
-                seller.setName(rs.getString("Name"));
-                seller.setEmail(rs.getString("Email"));
-                seller.setBaseSalary(rs.getDouble("BaseSalary"));
-                seller.setBirthDate(rs.getDate("BirthDate"));
-                seller.setDepartment(dep);
-
+                Seller seller = instantiateSeller(rs, dep);
                 list.add(seller);
             }
 
