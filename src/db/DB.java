@@ -20,7 +20,7 @@ public class DB {
                 String url = props.getProperty("jdbc.url");
                 conn = DriverManager.getConnection(url, props);
             } catch (SQLException e) {
-                throw new DbException(e.getMessage());
+                throw new DbException(e.getMessage() + "\nErro ao conectar ao banco de dados:");
             }
         }
         return conn;
@@ -32,7 +32,7 @@ public class DB {
             props.load(fs);
             return props;
         } catch (IOException e) {
-            throw new DbException(e.getMessage());
+            throw new DbException(e.getMessage() + "\nErro ao carregar propriedades: ");
         }
     }
 
@@ -41,7 +41,7 @@ public class DB {
             try {
                 conn.close();
             } catch (SQLException e) {
-                throw new DbException(e.getMessage());
+                throw new DbException(e.getMessage() + "\nErro ao fechar conexão: ");
             }
         }
     }
@@ -51,7 +51,7 @@ public class DB {
             try {
                 st.close();
             } catch (SQLException e) {
-                throw new DbException(e.getMessage());
+                throw new DbException(e.getMessage() + "\nErro ao fechar statement: ");
             }
         }
     }
@@ -61,7 +61,7 @@ public class DB {
             try {
                 rs.close();
             } catch (SQLException e) {
-                throw new DbException(e.getMessage());
+                throw new DbException(e.getMessage() + "\nErro ao fechar result set: ");
             }
         }
     }
