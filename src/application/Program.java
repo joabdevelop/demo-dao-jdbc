@@ -42,5 +42,15 @@ public class Program {
         sellerDao.insert(newSeller);
         System.out.println("Inserido: " + newSeller.getId());
 
+        System.out.println("\n=== Teste: Seller update ===");
+        seller = sellerDao.findById(1);
+        seller.setName("Martha Red");
+        seller.setEmail("martha@gmail.com");
+        seller.setBaseSalary(3000.0);
+        seller.setBirthDate(new java.util.Date(1993-11-30));
+        seller.setDepartment(new Department(2, null));
+        sellerDao.update(seller);
+        System.out.println("Updated completed");
+
     }
 }
